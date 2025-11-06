@@ -1,3 +1,16 @@
+# Blake Added
+
+Contract Route Feature
+• Added /contract/<id> route to return contract information.
+• 200 OK → Contract found, returns JSON with contract details.
+• 404 Not Found → Contract ID not found in dataset.
+
+Customer Route Feature
+
+- Added /customers/<name> route to return customers name
+- 200 OK Customer found
+- 404 Not found - customer name not found
+
 # Lab: Contractors Lab
 
 ---
@@ -34,6 +47,7 @@ Build the following routes:
 #### App Routes:
 
 - `GET /contract/<id>`
+
   - **200**: Contract found — return contract information.
   - **404**: Contract not found.
 
@@ -66,7 +80,7 @@ Build the following routes:
 
 ## Tools and Resources
 
-- **GitHub Repo**: *Link to be provided*
+- **GitHub Repo**: _Link to be provided_
 - **Flask Quickstart**: [https://flask.palletsprojects.com/en/stable/quickstart/](https://flask.palletsprojects.com/en/stable/quickstart/)
 
 ---
@@ -78,6 +92,7 @@ Build the following routes:
 Before coding:
 
 1. **Fork and Clone**
+
    - Go to the provided GitHub repository link.
    - Fork the repository to your GitHub account.
    - Clone the forked repository to your local machine.
@@ -103,6 +118,7 @@ Build the following routes:
 #### App Routes:
 
 - `/contract/<id>`
+
   - **200**: Contract found — return information
   - **404**: Contract not found
 
