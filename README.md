@@ -1,149 +1,216 @@
-# Lab: Contractors Lab
+# Flask Contracts Management API
+
+A Flask API for managing contractor relationships between two parties. Implements secure customer data handling with appropriate HTTP status codes.
+
+## Features
+
+- 🔐 **Secure Customer Data** - Returns 204 (No Content) to confirm customer existence without exposing sensitive information
+- 📄 **Contract Management** - Retrieves full contract details with proper status codes
+- ✅ **RESTful Design** - Uses appropriate HTTP status codes (200, 204, 404)
+- 🧪 **Tested Routes** - Verified contract and customer endpoints
+
+## Technologies Used
+
+- **Python 3.12** - Core programming language
+- **Flask** - Web framework for API development
+- **Pipenv** - Dependency and virtual environment management
+
+## Setup
+
+### Prerequisites
+- Python 3.12
+- Pipenv
+
+### Installation
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd python-flask-contracts-lab
+
+# Install dependencies with Pipenv
+pipenv install
+
+# Activate virtual environment
+pipenv shell
+
+# Navigate to server directory
+cd server
+
+# Run the application
+python app.py
+```
+
+The server will start on `http://127.0.0.1:5555`
+
+## API Endpoints
+
+### Get Contract by ID
+```
+GET /contract/<id>
+```
+
+**Description:** Retrieves contract information by contract ID.
+
+**Parameters:**
+- `id` (integer) - Contract ID in URL path
+
+**Responses:**
+- `200 OK` - Contract found, returns contract data as JSON
+- `404 Not Found` - Contract ID does not exist
+
+**Example:**
+```bash
+# Valid contract
+curl -i http://127.0.0.1:5555/contract/1
+
+# Response: 200 OK
+{
+  "id": 1,
+  "contract_information": "This contract is for John and building a shed"
+}
+
+# Invalid contract
+curl -i http://127.0.0.1:5555/contract/999
+# Response: 404 Not Found
+```
 
 ---
 
-## Overview
+### Check Customer Exists
+```
+GET /customer/<customer_name>
+```
 
-Now it is time for you to build your own request responses!
+**Description:** Verifies customer existence without exposing sensitive customer data.
 
-You are working for a company that manages contracts between two parties. You need to manage sensitive data, and as such, you need to build two requests:
+**Parameters:**
+- `customer_name` (string) - Customer name in URL path (case-insensitive)
 
-- One for **customer information**
-- One for **contract information**
+**Responses:**
+- `204 No Content` - Customer exists (empty response body for security)
+- `404 Not Found` - Customer does not exist
 
-You will be using two new response codes:
+**Example:**
+```bash
+# Valid customer
+curl -i http://127.0.0.1:5555/customer/bob
+# Response: 204 No Content (empty body)
 
-- **204**: Successful response but no data to send (e.g., confirming a customer exists without sharing data).
-- **404**: Not found — we cannot find the requested data.
+# Invalid customer
+curl -i http://127.0.0.1:5555/customer/alice
+# Response: 404 Not Found
+```
 
----
-
-## Tasks
-
-### Task 1: Define the Problem
-
-Build the following routes:
-
-- `/contract/<id>`
-- `/customer/<customer_name>`
-
----
-
-### Task 2: Determine the Design
-
-#### App Routes:
-
-- `GET /contract/<id>`
-  - **200**: Contract found — return contract information.
-  - **404**: Contract not found.
-
-- `GET /customer/<customer_name>`
-  - **204**: Customer found — no information returned (sensitive).
-  - **404**: Customer not found.
+**Security Note:** The 204 status code confirms customer existence without returning any personal information, protecting sensitive data.
 
 ---
 
-### Task 3: Develop the Code
+## Sample Data
 
-- Initialize Flask
-- Set up routes
-- Configure responses
+### Contracts
+```python
+[
+    {"id": 1, "contract_information": "This contract is for John and building a shed"},
+    {"id": 2, "contract_information": "This contract is for a deck for a buisiness"},
+    {"id": 3, "contract_information": "This contract is to confirm ownership of this car"}
+]
+```
 
----
+### Customers
+```python
+["bob", "bill", "john", "sarah"]
+```
 
-### Task 4: Test and Refine
+## HTTP Status Codes Used
 
-- Debug and test during development using the provided test suite and Flask instance.
+| Code | Meaning | When Used |
+|------|---------|-----------|
+| 200 | OK | Contract found and returned successfully |
+| 204 | No Content | Customer exists but no data returned (security) |
+| 404 | Not Found | Requested resource does not exist |
 
----
+## Project Structure
+```
+python-flask-contracts-lab/
+├── server/
+│   └── app.py              # Flask application with routes
+├── Pipfile                 # Python dependencies
+├── Pipfile.lock           # Locked dependency versions
+├── README.md              # This file
+└── screenshot_contracts_api.png  # API demonstration
+```
 
-### Task 5: Document and Maintain
+## Testing
 
-- Commit as you go with meaningful messages.
-- Push commit history to GitHub periodically and when the lab is complete.
+### Using curl
+```bash
+# Test all contract endpoints
+curl -i http://127.0.0.1:5555/contract/1
+curl -i http://127.0.0.1:5555/contract/2
+curl -i http://127.0.0.1:5555/contract/3
+curl -i http://127.0.0.1:5555/contract/999  # 404
 
----
+# Test all customer endpoints
+curl -i http://127.0.0.1:5555/customer/bob
+curl -i http://127.0.0.1:5555/customer/john
+curl -i http://127.0.0.1:5555/customer/alice  # 404
+```
 
-## Tools and Resources
+### Using Browser
 
-- **GitHub Repo**: *Link to be provided*
-- **Flask Quickstart**: [https://flask.palletsprojects.com/en/stable/quickstart/](https://flask.palletsprojects.com/en/stable/quickstart/)
+Navigate to:
+- `http://127.0.0.1:5555/contract/1`
+- `http://127.0.0.1:5555/customer/bob`
 
----
+## API Screenshot
 
-## Instructions
+![API Testing Results](./screenshot_contracts_api.png)
 
-### Set Up
+## Development Notes
 
-Before coding:
+### Key Implementation Details
 
-1. **Fork and Clone**
-   - Go to the provided GitHub repository link.
-   - Fork the repository to your GitHub account.
-   - Clone the forked repository to your local machine.
+**Contract Route:**
+- Uses `<int:id>` to ensure ID is parsed as integer
+- Searches contracts array for matching ID
+- Returns JSON response with `jsonify()` for 200 status
+- Returns empty string for 404 status
 
-2. **Open and Run**
-   - Open the project in VSCode.
-   - Run `pipenv install` to install dependencies.
-   - Run `pipenv shell` to activate the Python shell.
+**Customer Route:**
+- Uses `<string:customer_name>` for string parameter
+- Case-insensitive matching (converts to lowercase)
+- Returns 204 with empty body to protect sensitive data
+- Security-first approach: confirms existence without exposing details
 
----
+**Status Code Implementation:**
+```python
+# Success with data
+return make_response(jsonify(data), 200)
 
-### Task 1: Define the Problem
+# Success without data (security)
+return make_response('', 204)
 
-Build the following routes:
+# Not found
+return make_response('', 404)
+```
 
-- `/contract/<id>`
-- `/customer/<customer_name>`
+## Future Enhancements
 
----
+- Add POST/PUT/DELETE operations for full CRUD
+- Implement database storage (SQLAlchemy)
+- Add authentication/authorization
+- Input validation and sanitization
+- Error handling middleware
+- API versioning
+- Rate limiting
+- Logging
 
-### Task 2: Determine the Design
+## Author
 
-#### App Routes:
+**Greg**  
+Flatiron School - Flask API Development Lab  
+January 2026
 
-- `/contract/<id>`
-  - **200**: Contract found — return information
-  - **404**: Contract not found
+## License
 
-- `/customer/<customer_name>`
-  - **204**: Customer found — return no information
-  - **404**: Customer not found
-
----
-
-### Task 3: Develop, Test, and Refine the Code
-
-1. Create a **feature branch**.
-2. Build the following routes:
-
-#### `/contract/<id>`
-
-- If the contract ID is found in the given array:
-  - Return contract information with a **200** response.
-- If not found:
-  - Return a **404** response.
-
-#### `/customer/<customer_name>`
-
-- If the customer name is found:
-  - Return a **204** response with an empty body.
-- If not found:
-  - Return a **404** response.
-
-3. Push the feature branch and open a PR on GitHub.
-4. Merge into `main`.
-
----
-
-### Task 4: Document and Maintain
-
-#### Best Practices:
-
-- Add comments to explain logic and purpose.
-- Clarify code intent for other developers.
-- Include a screenshot of completed work in the README.
-- Update the README to reflect functionality using [https://makeareadme.com](https://makeareadme.com).
-- Delete stale branches on GitHub.
-- Remove unnecessary or commented-out code.
-- Update `.gitignore` if needed to exclude sensitive data
+Educational project - Flatiron School Curriculum
