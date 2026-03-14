@@ -66,7 +66,7 @@ Build the following routes:
 
 ## Tools and Resources
 
-- **GitHub Repo**: *Link to be provided*
+- **GitHub Repo**: _Link to be provided_
 - **Flask Quickstart**: [https://flask.palletsprojects.com/en/stable/quickstart/](https://flask.palletsprojects.com/en/stable/quickstart/)
 
 ---
@@ -147,3 +147,19 @@ Build the following routes:
 - Delete stale branches on GitHub.
 - Remove unnecessary or commented-out code.
 - Update `.gitignore` if needed to exclude sensitive data
+
+# Managing Contracts Flask App
+
+This Flask application manages contract and customer routes.
+
+Routes:
+
+/contract/<id>
+Returns contract information if the contract exists.
+Returns 404 if the contract does not exist.
+
+/customer/<customer_name>
+Returns 204 if the customer exists (no data returned for security).
+Returns 404 if the customer does not exist.
+
+Created By Joshus Previlon
