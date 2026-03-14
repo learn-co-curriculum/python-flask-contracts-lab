@@ -161,3 +161,5 @@ Returns 404 if the contract does not exist.
 /customer/<customer_name>
 Returns 204 if the customer exists (no data returned for security).
 Returns 404 if the customer does not exist.
+
+Created By Joshus Previlon
