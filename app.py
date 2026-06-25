@@ -1,35 +1,30 @@
-from flask import Flask, jsonify
+from flask import Flask
 
 app = Flask(__name__)
 
 contracts = [
-    {"id": 0, "name": "Contract A"},
-    {"id": 1, "name": "Contract B"},
-    {"id": 2, "name": "Contract C"}
+    {"id": 0, "info": "This contract is for John and building a shed"},
+    {"id": 1, "info": "This contract is for Alice and painting a house"},
+    {"id": 2, "info": "This contract is for Bob and fixing a roof"}
 ]
 
+customers = ["John", "Alice", "Bob"]
 
-customers = [
-    {"id": 0, "name": "Customer 1"},
-    {"id": 1, "name": "Customer 2"},
-    {"id": 2, "name": "Customer 3"}
-]
 
-@app.route('/contracts/<int:contract_id>')
-def get_contract(contract_id):
+@app.route('/contract/<int:id>')
+def get_contract(id):
     for contract in contracts:
-        if contract["id"] == contract_id:
-            return jsonify(contract), 200
-        
-    return jsonify({"error": "Contract not found"}), 404    
-pipenv shell
-@app.route('/customers/<int:customer_id>')
-def get_customer(customer_id):
-    for customer in customers:
-        if customer["id"] == customer_id:
-            return jsonify(customer), 200
-        
-    return jsonify({"error": "Customer not found"}), 404    
+        if contract["id"] == id:
+            return contract["info"], 200
+    return "", 404
+
+
+@app.route('/customer/<customer_name>')
+def get_customer(customer_name):
+    if customer_name in customers:
+        return "", 204
+    return "", 404
+
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True)
