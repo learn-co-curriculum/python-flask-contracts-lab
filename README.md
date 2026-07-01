@@ -1,149 +1,170 @@
-# Lab: Contractors Lab
+# Flask Contracts API
+
+A simple Flask application that demonstrates dynamic routing and HTTP response codes by managing contract and customer information.
+
+The application provides endpoints for retrieving contract information and verifying whether a customer exists while protecting sensitive customer data.
+
+## Features
+
+* Retrieve contract information using a contract ID.
+* Verify whether a customer exists without exposing customer information.
+* Uses appropriate HTTP status codes:
+
+  * **200 OK** – Contract found.
+  * **204 No Content** – Customer exists, but no data is returned.
+  * **404 Not Found** – Requested contract or customer does not exist.
+
+## Project Structure
+
+```text
+python-flask-contracts-lab/
+├── server/
+│   └── app.py
+├── Pipfile
+├── Pipfile.lock
+├── README.md
+└── pytest.ini
+```
+
+## Installation
+
+1. Clone the repository.
+
+```bash
+git clone git@github.com:wanja-juma/python-flask-contracts-lab.git
+```
+
+2. Navigate to the project directory.
+
+```bash
+cd python-flask-contracts-lab
+```
+
+3. Install the project dependencies.
+
+```bash
+pipenv install
+```
+
+4. Activate the virtual environment.
+
+```bash
+pipenv shell
+```
+
+## Running the Application
+
+Start the Flask development server:
+
+```bash
+flask --app server.app run
+```
+
+The application will be available at:
+
+```text
+http://127.0.0.1:5000
+```
+
+## API Endpoints
+
+### Get Contract Information
+
+**Endpoint**
+
+```text
+/contract/<id>
+```
+
+**Method**
+
+```text
+GET
+```
+
+#### Success Response
+
+**Status Code:** `200 OK`
+
+Returns the contract information associated with the specified contract ID.
+
+Example:
+
+```text
+This contract is for John and building a shed
+```
+
+#### Error Response
+
+**Status Code:** `404 Not Found`
+
+Returned when no contract exists with the specified ID.
 
 ---
 
-## Overview
+### Verify Customer
 
-Now it is time for you to build your own request responses!
+**Endpoint**
 
-You are working for a company that manages contracts between two parties. You need to manage sensitive data, and as such, you need to build two requests:
+```text
+/customer/<customer_name>
+```
 
-- One for **customer information**
-- One for **contract information**
+**Method**
 
-You will be using two new response codes:
+```text
+GET
+```
 
-- **204**: Successful response but no data to send (e.g., confirming a customer exists without sharing data).
-- **404**: Not found — we cannot find the requested data.
+#### Success Response
 
----
+**Status Code:** `204 No Content`
 
-## Tasks
+Confirms that the customer exists without returning any customer information.
 
-### Task 1: Define the Problem
+#### Error Response
 
-Build the following routes:
+**Status Code:** `404 Not Found`
 
-- `/contract/<id>`
-- `/customer/<customer_name>`
+Returned when the customer does not exist.
 
----
+## Example Requests
 
-### Task 2: Determine the Design
+Retrieve contract information:
 
-#### App Routes:
+```text
+GET /contract/1
+```
 
-- `GET /contract/<id>`
-  - **200**: Contract found — return contract information.
-  - **404**: Contract not found.
+Check if a customer exists:
 
-- `GET /customer/<customer_name>`
-  - **204**: Customer found — no information returned (sensitive).
-  - **404**: Customer not found.
+```text
+GET /customer/john
+```
 
----
+Attempt to retrieve a non-existent contract:
 
-### Task 3: Develop the Code
+```text
+GET /contract/10
+```
 
-- Initialize Flask
-- Set up routes
-- Configure responses
+Attempt to verify a non-existent customer:
 
----
+```text
+GET /customer/alice
+```
 
-### Task 4: Test and Refine
+## Technologies Used
 
-- Debug and test during development using the provided test suite and Flask instance.
+* Python 3
+* Flask
+* Pipenv
+* Pytest
 
----
+## Display Image
 
-### Task 5: Document and Maintain
+Screenshot 2026-07-02 013153.png
 
-- Commit as you go with meaningful messages.
-- Push commit history to GitHub periodically and when the lab is complete.
+## Author
 
----
-
-## Tools and Resources
-
-- **GitHub Repo**: *Link to be provided*
-- **Flask Quickstart**: [https://flask.palletsprojects.com/en/stable/quickstart/](https://flask.palletsprojects.com/en/stable/quickstart/)
-
----
-
-## Instructions
-
-### Set Up
-
-Before coding:
-
-1. **Fork and Clone**
-   - Go to the provided GitHub repository link.
-   - Fork the repository to your GitHub account.
-   - Clone the forked repository to your local machine.
-
-2. **Open and Run**
-   - Open the project in VSCode.
-   - Run `pipenv install` to install dependencies.
-   - Run `pipenv shell` to activate the Python shell.
-
----
-
-### Task 1: Define the Problem
-
-Build the following routes:
-
-- `/contract/<id>`
-- `/customer/<customer_name>`
-
----
-
-### Task 2: Determine the Design
-
-#### App Routes:
-
-- `/contract/<id>`
-  - **200**: Contract found — return information
-  - **404**: Contract not found
-
-- `/customer/<customer_name>`
-  - **204**: Customer found — return no information
-  - **404**: Customer not found
-
----
-
-### Task 3: Develop, Test, and Refine the Code
-
-1. Create a **feature branch**.
-2. Build the following routes:
-
-#### `/contract/<id>`
-
-- If the contract ID is found in the given array:
-  - Return contract information with a **200** response.
-- If not found:
-  - Return a **404** response.
-
-#### `/customer/<customer_name>`
-
-- If the customer name is found:
-  - Return a **204** response with an empty body.
-- If not found:
-  - Return a **404** response.
-
-3. Push the feature branch and open a PR on GitHub.
-4. Merge into `main`.
-
----
-
-### Task 4: Document and Maintain
-
-#### Best Practices:
-
-- Add comments to explain logic and purpose.
-- Clarify code intent for other developers.
-- Include a screenshot of completed work in the README.
-- Update the README to reflect functionality using [https://makeareadme.com](https://makeareadme.com).
-- Delete stale branches on GitHub.
-- Remove unnecessary or commented-out code.
-- Update `.gitignore` if needed to exclude sensitive data
+Ruth Juma
