@@ -19,7 +19,7 @@ def get_contract(id):
     if contract is None:
         return make_response(jsonify({"error": "Contract not found"}), 404)
 
-    return make_response(jsonify(contract), 200)
+    return make_response(contract["contract_information"], 200)
 
 
 @app.route('/customer/<string:customer_name>', methods=['GET'])
