@@ -10,7 +10,7 @@ app = Flask(__name__)
 def get_contract(id):
     for contract in contracts:
         if contract["id"] == id:
-            return jsonify(contract), 200
+            return contract["contract_information"], 200
 
     return "", 404
 
