@@ -147,3 +147,13 @@ Build the following routes:
 - Delete stale branches on GitHub.
 - Remove unnecessary or commented-out code.
 - Update `.gitignore` if needed to exclude sensitive data
+
+---
+
+## Test Results
+
+All automated tests pass successfully:
+![Test Results](screenshots/test-results%20png.png)
+
+
+![Test Results](screenshots/test-results%20png.png)
