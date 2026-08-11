@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <rect width="1200" height="700" fill="#f7f9fc"/>
+  <text x="600" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#1f2937">Contractor Management API</text>
+
+  <rect x="120" y="140" width="440" height="220" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/>
+  <text x="340" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0f172a">GET /contract/&lt;id&gt;</text>
+  <text x="340" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#0f172a">200 OK</text>
+  <text x="340" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">Returns contract text</text>
+  <text x="340" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">Example: /contract/1</text>
+  <text x="340" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">404 when not found</text>
+
+  <rect x="640" y="140" width="440" height="220" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="860" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0f172a">GET /customer/&lt;name&gt;</text>
+  <text x="860" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#0f172a">204 No Content</text>
+  <text x="860" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">Customer exists</text>
+  <text x="860" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">No sensitive body returned</text>
+  <text x="860" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">404 when missing</text>
+
+  <rect x="260" y="430" width="680" height="150" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="600" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1f2937">Response behavior</text>
+  <text x="600" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" fill="#475569">Contract route returns data • Customer route confirms existence without exposing details</text>
+</svg>
