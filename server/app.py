@@ -41,5 +41,5 @@ def get_customer(customer_name):
     return "Customer not found", 404
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(port=5555, debug=True)
