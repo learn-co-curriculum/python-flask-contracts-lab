@@ -147,3 +147,20 @@ Build the following routes:
 - Delete stale branches on GitHub.
 - Remove unnecessary or commented-out code.
 - Update `.gitignore` if needed to exclude sensitive data
+
+---
+
+## Usage
+
+```bash
+pipenv install && pipenv shell
+python server/app.py   # runs on http://localhost:5555
+pytest                 # runs the test suite
+```
+
+### Endpoints
+
+| Route | Success | Failure |
+|---|---|---|
+| `GET /contract/<id>` | **200** with the contract's information as plain text | **404** if no contract has that id |
+| `GET /customer/<customer_name>` | **204** with an empty body (customer data is sensitive) | **404** if the customer does not exist |
