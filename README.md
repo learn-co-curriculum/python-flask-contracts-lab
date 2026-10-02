@@ -164,3 +164,9 @@ pytest                 # runs the test suite
 |---|---|---|
 | `GET /contract/<id>` | **200** with the contract's information as plain text | **404** if no contract has that id |
 | `GET /customer/<customer_name>` | **204** with an empty body (customer data is sensitive) | **404** if the customer does not exist |
+
+### Screenshot
+
+All tests passing:
+
+![pytest output showing all 6 tests passing](images/tests-passing.png)
