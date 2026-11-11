@@ -1,149 +1,215 @@
-# Lab: Contractors Lab
+# Lab: Routes Request Response Cycle - Managing Contracts
 
----
+A Flask application that demonstrates request/response handling, route parameters, HTTP status codes, and protecting sensitive customer data.
 
-## Overview
+## Features
 
-Now it is time for you to build your own request responses!
+The application includes two routes:
 
-You are working for a company that manages contracts between two parties. You need to manage sensitive data, and as such, you need to build two requests:
+### Contract Route
 
-- One for **customer information**
-- One for **contract information**
+```text
+/contract/<id>
+```
 
-You will be using two new response codes:
+If the requested contract ID exists, the application returns the contract information with a `200 OK` response.
 
-- **204**: Successful response but no data to send (e.g., confirming a customer exists without sharing data).
-- **404**: Not found — we cannot find the requested data.
+Example:
 
----
+```text
+/contract/1
+```
 
-## Tasks
+Returns:
 
-### Task 1: Define the Problem
+```text
+This contract is for John and building a shed
+```
 
-Build the following routes:
+If the contract ID does not exist, the application returns:
 
-- `/contract/<id>`
-- `/customer/<customer_name>`
+```text
+404 Not Found
+```
 
----
+### Customer Route
 
-### Task 2: Determine the Design
+```text
+/customer/<customer_name>
+```
 
-#### App Routes:
+If the requested customer exists, the application returns:
 
-- `GET /contract/<id>`
-  - **200**: Contract found — return contract information.
-  - **404**: Contract not found.
+```text
+204 No Content
+```
 
-- `GET /customer/<customer_name>`
-  - **204**: Customer found — no information returned (sensitive).
-  - **404**: Customer not found.
+with an empty response body.
 
----
+This allows the application to confirm that a customer exists without exposing sensitive customer information.
 
-### Task 3: Develop the Code
+If the customer does not exist, the application returns:
 
-- Initialize Flask
-- Set up routes
-- Configure responses
+```text
+404 Not Found
+```
 
----
+## HTTP Response Codes
 
-### Task 4: Test and Refine
+This lab uses three important response codes.
 
-- Debug and test during development using the provided test suite and Flask instance.
+### 200 OK
 
----
+Used when a contract is found successfully.
 
-### Task 5: Document and Maintain
+The response includes the contract information.
 
-- Commit as you go with meaningful messages.
-- Push commit history to GitHub periodically and when the lab is complete.
+### 204 No Content
 
----
+Used when a customer exists.
 
-## Tools and Resources
+The request succeeds, but the application intentionally sends no response body because the customer information is considered sensitive.
 
-- **GitHub Repo**: *Link to be provided*
-- **Flask Quickstart**: [https://flask.palletsprojects.com/en/stable/quickstart/](https://flask.palletsprojects.com/en/stable/quickstart/)
+### 404 Not Found
 
----
+Used when a requested contract or customer cannot be found.
 
-## Instructions
+## Available Data
 
-### Set Up
+The application includes three example contracts:
 
-Before coding:
+```python
+[
+    {
+        "id": 1,
+        "contract_information": "This contract is for John and building a shed",
+    },
+    {
+        "id": 2,
+        "contract_information": "This contract is for a deck for a buisiness",
+    },
+    {
+        "id": 3,
+        "contract_information": "This contract is to confirm ownership of this car",
+    },
+]
+```
 
-1. **Fork and Clone**
-   - Go to the provided GitHub repository link.
-   - Fork the repository to your GitHub account.
-   - Clone the forked repository to your local machine.
+Available customers:
 
-2. **Open and Run**
-   - Open the project in VSCode.
-   - Run `pipenv install` to install dependencies.
-   - Run `pipenv shell` to activate the Python shell.
+```python
+["bob", "bill", "john", "sarah"]
+```
 
----
+## Project Structure
 
-### Task 1: Define the Problem
+```text
+python-flask-contracts-lab/
+├── images/
+│   └── tests-passing.png
+├── server/
+│   ├── app.py
+│   └── testing/
+│       ├── app_test.py
+│       └── conftest.py
+├── Pipfile
+├── Pipfile.lock
+├── pytest.ini
+└── README.md
+```
 
-Build the following routes:
+## Setup
 
-- `/contract/<id>`
-- `/customer/<customer_name>`
+Install the project dependencies:
 
----
+```bash
+pipenv install
+```
 
-### Task 2: Determine the Design
+Enter the virtual environment:
 
-#### App Routes:
+```bash
+pipenv shell
+```
 
-- `/contract/<id>`
-  - **200**: Contract found — return information
-  - **404**: Contract not found
+The project uses:
 
-- `/customer/<customer_name>`
-  - **204**: Customer found — return no information
-  - **404**: Customer not found
+```text
+Python 3.8.13
+```
 
----
+## Running the Application
 
-### Task 3: Develop, Test, and Refine the Code
+From the project root, run:
 
-1. Create a **feature branch**.
-2. Build the following routes:
+```bash
+python server/app.py
+```
 
-#### `/contract/<id>`
+The Flask development server runs on port `5555`.
 
-- If the contract ID is found in the given array:
-  - Return contract information with a **200** response.
-- If not found:
-  - Return a **404** response.
+Example contract request:
 
-#### `/customer/<customer_name>`
+```text
+http://127.0.0.1:5555/contract/1
+```
 
-- If the customer name is found:
-  - Return a **204** response with an empty body.
-- If not found:
-  - Return a **404** response.
+Example customer request:
 
-3. Push the feature branch and open a PR on GitHub.
-4. Merge into `main`.
+```text
+http://127.0.0.1:5555/customer/bob
+```
 
----
+## Testing
 
-### Task 4: Document and Maintain
+Run the automated test suite:
 
-#### Best Practices:
+```bash
+python -m pytest -v
+```
 
-- Add comments to explain logic and purpose.
-- Clarify code intent for other developers.
-- Include a screenshot of completed work in the README.
-- Update the README to reflect functionality using [https://makeareadme.com](https://makeareadme.com).
-- Delete stale branches on GitHub.
-- Remove unnecessary or commented-out code.
-- Update `.gitignore` if needed to exclude sensitive data
+Current result:
+
+```text
+6 passed
+```
+
+The tests verify:
+
+- `/contract/<id>` exists
+- existing contracts return `200`
+- contract information is returned correctly
+- missing contracts return `404`
+- `/customer/<customer_name>` exists
+- existing customers return `204`
+- successful customer responses have an empty body
+- missing customers return `404`
+
+## Completed Test Suite
+
+![Passing contract route tests](images/tests-passing.png)
+
+## Technologies
+
+- Python
+- Flask
+- pytest
+- Pipenv
+- Git
+- GitHub
+
+## Key Concept
+
+The main request/response lesson in this lab is that a successful request does not always need to return data.
+
+The customer route uses:
+
+```text
+204 No Content
+```
+
+to confirm that a customer exists while intentionally protecting sensitive customer information.
+
+## Author
+
+Abraham Zarate
